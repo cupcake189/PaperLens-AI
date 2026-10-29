@@ -113,7 +113,7 @@ def summarize_paper(text, client):
                 }
             ],
             temperature=0.2,
-            max_tokens=1000
+            max_tokens=250
         )
 
         notes.append(response.choices[0].message.content)
@@ -126,8 +126,8 @@ def summarize_paper(text, client):
     }
 
     final_prompt = f"""
-Create a research paper summary of approximately
-{lengths[summary_length]} words using the notes below.
+Create a {summary_length.lower()} research paper summary
+using the notes below.
 
 Use these headings:
 1. Paper Overview
@@ -138,9 +138,8 @@ Use these headings:
 6. Plain-Language Takeaway
 7. Evidence Check
 
-Do not invent facts. Mention when information is unavailable.
-Treat the notes as evidence, and flag important claims that
-should be checked against the original paper.
+Be concise. Use only supported facts. Do not invent results.
+Clearly identify information missing from the notes.
 
 NOTES:
 {"".join(notes)}
